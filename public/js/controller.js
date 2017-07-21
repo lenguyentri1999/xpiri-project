@@ -12,4 +12,8 @@ app.directive('customOnChange', function() {
 
 .controller('homePageCtrl', ['$scope', '$state',
   function ($scope, $state){
-}]);
+}])
+
+.controller('testappPageCtrl', ['$scope', '$state',
+  function ($scope, $state){
+}]); 
