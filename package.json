@@ -2,10 +2,12 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "dependencies": {
-	"@google-cloud/logging": "^0.7.1",
+    "@google-cloud/logging": "^0.7.1",
+    "angucomplete-alt": "^3.0.0",
+    "angular-web-notification": "^1.2.23",
     "firebase-admin": "^4.1.2",
     "firebase-functions": "^0.5",
-	"stripe": "^4.15.0"
+    "stripe": "^4.15.0"
   },
   "private": true
 }

@@ -1,30 +1,46 @@
-app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', '$firebaseArray',
-  function ($scope, $state, $localStorage, $firebaseArray)
+app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', 'webNotification',
+  function ($scope, $state, $localStorage, webNotification)
   {
-    $scope.nameData = [];
-    $scope.emailData = [];
-
-    //IF USER HASN'T LOGGED IN YET, THEN LOG THEM IN
-    var currentUser = firebase.auth().currentUser;
-    if (currentUser===null){
-      firebase.auth().signInWithEmailAndPassword($localStorage.email, $localStorage.password).then(function(){
-        $state.reload();
-      });
+    var ref = firebase.database().ref('freshfruit');
+    if (!$localStorage.selectedFruitList){
+      $localStorage.selectedFruitList=[];
     }
 
-    else{
-      var refUser = firebase.database().ref("users");
-      refUser.once('value', function(snapshot){
-        var table = snapshot.val();
-        for (var user in table){
-          $scope.nameData.push(table[user].name);
-          $scope.emailData.push(table[user].email);
-        }
-        console.log($scope.nameData);
-        console.log($scope.emailData);
-      });
+    console.log($localStorage.selectedFruitList);
+
+
+    ref.on("value", function(snap){
+      $scope.fruitList = snap.val();
+    })
+    $scope.selectedFruit = function(selected){
+      $localStorage.selectedFruitList.push(selected.title);
+      var bodyMsg = "You have selected " + selected.title;
+
+      // alert("You have selected " + selected.title);
+      webNotification.showNotification('Xpiri', {
+        body: bodyMsg
+
+      })
+      $state.go('search');
+    };
+    $scope.Remove = function(x){
+
+      $localStorage.selectedFruitList.splice(x, 1);
+    };
+    $scope.selectedFruitList=$localStorage.selectedFruitList;
+
+
+    console.log($scope.selectedFruitList);
+    $scope.clearList = function() {
+      $localStorage.selectedFruitList=[];
+      $scope.selectedFruitList=[];
+    }
+
+
+
+
+
 
 
     }
-  }
 ]);

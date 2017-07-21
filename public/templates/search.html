@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <body>
-  <div id="navbar" class="wrap">
-    <a ui-sref="profile" ng-click="show=1"><i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
-    <a ui-sref="search"><i class="fa fa-globe fa-lg" aria-hidden="true"></i></a>
-    <a ui-sref="match"><i class="fa fa-star fa-lg" aria-hidden="true"></i></a>
-    <a ui-sref="interest"><i class="fa fa-tag fa-lg" aria-hidden="true"></i></a>
-    <a ui-sref="message"><i class="fa fa-commenting fa-lg" aria-hidden="true"></i></a>
-  </div>
 
-  <div id="header">
-    <h1>SEARCH</h1>
-  </div>
+  <li ng-repeat="fruit in selectedFruitList">
+    {{fruit}}
+    <span ng-click="Remove($index)">X</span>
+  </li>
+   <button ng-click="clearList()">Clear</button>
 
-  <div id="K">
+  <angucomplete-alt id="fruit"
+   placeholder="Input fruit"
+   pause="100"
+   selected-object="selectedFruit"
+   local-data="fruitList"
+   search-fields="name"
+   title-field="name"
+   minlength="1"
+   clear-selected="true"
+   />
+
+
+
+
+
+  <!-- <div id="K">
     <input type="text" ng-model="searchUser" placeholder="Search people...."/>
     <div id="K1">
       <label for="nameRadio"> Search by Name</label>
@@ -24,5 +34,5 @@
     <div id="K2" ng-repeat="user in nameData | filter: searchUser">
       {{user}}
     </div>
-  </div>
+  </div> -->
 </body>
