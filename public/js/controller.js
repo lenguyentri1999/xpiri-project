@@ -8,5 +8,8 @@ app.directive('customOnChange', function() {
       element.bind('change', onChangeHandler);
     }
   };
-});
+})
 
+.controller('homePageCtrl', ['$scope', '$state',
+  function ($scope, $state){
+}]);
