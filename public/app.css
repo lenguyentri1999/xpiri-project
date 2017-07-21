@@ -1,25 +1,36 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
+
+html, body {margin: 0; height: 100%; overflow: hidden}
 body{
-  background-color: #E5E7E9;
+  background: url('images/header.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+
+input:focus, textarea:focus, button:focus{
+  outline: none;
 }
 
 #A{
   position: absolute;
   width: 100%;
   height: 100px;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.7);
   top: 0;
   left: 0;
+  box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.2);
 }
 
 #A h3{
   color: white;
   font-family: 'Lato', sans-serif;
   line-height: 50px;
-  margin-left: 50px;
+  margin-left: 70px;
   display: inline-block;
+  font-size: 25px;
 }
 
 i{
@@ -29,18 +40,101 @@ i{
 #B{
   position: absolute;
   top: 100px;
-  padding-top: 100px;
-  padding-left: 100px;
+  width: 100%;
+  height: 100%;
+  padding-top: 70px;
+  padding-left: 80px;
+  overflow: hidden;
 }
 
-#B input{
-  width: 900px;
-  height: 50px;
-  border: none;
-  font-family: 'Abel', sans-serif;
-  padding-left: 10px;
+/* THE DIV THAT CONTAIN THE SEARCH BAR AND THE SEARCH RESULTS */
+#B1{
+  position: absolute;
+  width: 450px;
+  height: 400px;
+  background-color: white;
+  overflow: hidden;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: 'Lato', sans-serif;
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.4);
 }
+
+
+#B1 input{
+  width: 90%;
+  height: 60px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  color: #7B7D7D;
+  border-bottom: 0.1px solid #D7DBDD;
+  margin-left: 10px;
+}
+
+#B1A{
+  margin-top: 20px;
+  margin-left: 20px;
+  color: #626567;
+  font-size: 17px;
+  line-height: 30px;
+}
+
+#B1A i{
+  color: #138D75;
+}
+
 
 ::-webkit-input-placeholder {
-  color:;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  color: #A6ACAF;
+}
+
+
+#B2{
+  position: absolute;
+  width: 400px;
+  min-height: 330px;
+  overflow: auto;
+  background: white;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px; 
+  margin-left: 45%;
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.4);
+}
+
+#B2 button{
+  display: block;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  background: #922B21;
+  color: white;
+}
+
+#B2 h2{
+  font-family: 'Lato', sans-serif;
+}
+
+#B2A{
+  font-size: 17px;
+  font-family: 'Lato', sans-serif;
+  line-height: 30px;
+  color: #4D5656;
+}
+
+#B2A i{
+  margin-right: 5px;
+}
+
+#B2A span{
+  display: inline-block;
+  float: right;
 }
