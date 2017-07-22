@@ -123,7 +123,7 @@ app.directive('customOnChange', function() {
       then(function success(result){
         console.log(result.data);
         var count = result.data.count;
-        if (count == 0) $scope.errorMessage = "Sorry, we could not find anything :(";
+        if (count === 0) $scope.errorMessage = "Sorry, we could not find anything :(";
         else {
           //OUTPUT THE DATA TO THE USER
           $scope.title = result.data.recipes[0].title;
@@ -138,9 +138,5 @@ app.directive('customOnChange', function() {
       });
 
     }
-
-
-
-
   };
 }]);

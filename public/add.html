@@ -10,10 +10,12 @@
    <div id="B1">
     <input type="search" ng-change="clear()" ng-model="foodKey" placeholder="SEARCH FOOD ..."/>
     <div id="B1A">
-      <div class="full-height" ng-click="getParentScope().addFood(food)"
-          ng-repeat="food in foodKeys | filter: foodKey | emptyifblank: foodKey">
-           {{food}} <span ng-click="getParentScope().addFood(food)">
-           <i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+      <div id="innerstatic2">
+        <div ng-click="getParentScope().addFood(food)"
+            ng-repeat="food in foodKeys | filter: foodKey | emptyifblank: foodKey">
+             {{food}} <span ng-click="getParentScope().addFood(food)">
+             <i class="fa fa-plus-circle" aria-hidden="true"></i></span>
+        </div>
       </div>
     </div>
   </div>
@@ -22,13 +24,14 @@
   <div id="B2">
     <h2>YOUR PANTRY </h2>
     <div id="B2A">
-      <div ng-repeat="food in selectedFoodList">
-        <i class="fa fa-caret-right" aria-hidden="true"></i>
-        {{food}}
-        <span ng-click="Remove($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+      <div id="innerstatic3">
+        <div ng-repeat="food in selectedFoodList">
+          <i class="fa fa-caret-right" aria-hidden="true"></i>
+          {{food}}
+          <span ng-click="Remove($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        </div>
       </div>
     </div>
-
     <button ng-click="clearList()">CLEAR LIST</button>
   </div>
 
