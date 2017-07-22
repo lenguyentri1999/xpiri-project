@@ -17,7 +17,6 @@ app.directive('customOnChange', function() {
 }])
 
 
-/* ----------------------- FILTE FOR THE ADD PAGE  ---------------------------- */
 .filter("emptyifblank", function(){
   return function(object, query) {
     if (!query){
@@ -29,7 +28,6 @@ app.directive('customOnChange', function() {
   };
 })
 
-/* ----------------------- CONTROLLER FOR THE ADD PAGE ---------------------------- */
 .controller('addPageCtrl', ['$scope', '$state', '$localStorage', 'webNotification',
   function ($scope, $state, $localStorage, webNotification)
   {
@@ -39,52 +37,73 @@ app.directive('customOnChange', function() {
     if (!$localStorage.selectedFoodList){
       $localStorage.selectedFoodList=[];
     }
+    if (!$localStorage.expiryDates){
+      $localStorage.expiryDates=[];
+    }
 
     console.log($localStorage.selectedFoodList);
 
-    //------ GET THE SNAPSHOT OF THE FOOD DATABASE--------------------
+
     food.on("value", function(snap){
       $scope.foodDatabase = snap.val();
       $scope.foodKeys = Object.keys($scope.foodDatabase);
+      // console.log($scope.foodList);
+      // console.log(Object.keys($scope.foodList));
+      $scope.addFood = function(food) {
+        var foodObj={};
+        foodObj.text = food;
+        console.log(foodObj.text);
+        //foodTimestamp: how long it takes for a food to expire (in seconds)
+        foodTimestamp = $scope.foodDatabase[food];
+
+        //GET THE TIMESTAMP OF WHEN THE PERSON ADDED THE FOOD
+        var dateTime = Date.now();
+        var timestamp = Math.floor(dateTime/1000);
+
+        //GET THE TIMESTAMP OF WHEN THE FOOD WILL EXPIRE
+        var expiryDateTimestamp = timestamp + foodTimestamp;
+
+        //CONVERT THAT TIMESTAMP INTO DAYS
+        foodObj.day = Math.floor(foodTimestamp/86400);
+        $localStorage.selectedFoodList.push(foodObj);
+
+
+        console.log(foodObj.text + "is selected");
+        console.log("timestamp of right now is " + timestamp);
+        console.log("timestamp from the database is " + foodTimestamp);
+        console.log("timestamp of " + foodObj.text + " is " + expiryDateTimestamp);
+        console.log(foodObj.text + " expires in " + foodObj.day + "days");
+
+
+
+      };
     });
 
-    //------- WHEN CLICK ON NG-REPEAT, IT RETURNS A NEW SCOPE--------
     $scope.getParentScope = function() {
       return $scope;
     };
 
-    //-------- WHEN USER CLICK ON A FOOD, NOTIFICATION RETURN--------
-    $scope.addFood = function(food) {
-      $localStorage.selectedFoodList.push(food);
-      console.log(food + "is selected");
-      var bodyMsg = "You have selected " + food;
-      webNotification.showNotification('Xpiri', {
-          body: bodyMsg
 
-        });
-    };
-
-    //------- DELETE FOOD OFF THE LIST -------------------------------
+    // };
     $scope.Remove = function(x){
+
       $localStorage.selectedFoodList.splice(x, 1);
     };
     $scope.selectedFoodList=$localStorage.selectedFoodList;
 
-    //--------- ERASE THE FOOD WHEN THE INPUT IS BLANK ---------------
     $scope.clearList = function() {
       $localStorage.selectedFoodList=[];
       $scope.selectedFoodList=[];
+      $state.reload();
     };
 
     $scope.clear = function() {
-      if ($scope.foodKey.length === 0) {
+      if ($scope.foodKey.length ===0) {
         delete $scope.foodKey;
       }
     };
-
-    }
+  }
 ])
-
 
 /* ----------------------- CONTROLLER FOR THE PROGRESS PAGE ---------------------------- */
 .controller('progressPageCtrl', ['$scope', '$state',
