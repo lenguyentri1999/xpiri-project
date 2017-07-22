@@ -10,10 +10,14 @@ app.directive('customOnChange', function() {
   };
 })
 
+
+/* ----------------------- CONTROLLER FOR THE HOME PAGE ---------------------------- */
 .controller('homePageCtrl', ['$scope', '$state',
   function ($scope, $state){
 }])
 
+
+/* ----------------------- FILTE FOR THE ADD PAGE  ---------------------------- */
 .filter("emptyifblank", function(){
   return function(object, query) {
     if (!query){
@@ -25,7 +29,8 @@ app.directive('customOnChange', function() {
   };
 })
 
-.controller('testappPageCtrl', ['$scope', '$state', '$localStorage', 'webNotification',
+/* ----------------------- CONTROLLER FOR THE ADD PAGE ---------------------------- */
+.controller('addPageCtrl', ['$scope', '$state', '$localStorage', 'webNotification',
   function ($scope, $state, $localStorage, webNotification)
   {
     var ref = firebase.database().ref();
@@ -78,4 +83,63 @@ app.directive('customOnChange', function() {
     };
 
     }
-]);
+])
+
+
+/* ----------------------- CONTROLLER FOR THE PROGRESS PAGE ---------------------------- */
+.controller('progressPageCtrl', ['$scope', '$state',
+  function ($scope, $state){
+}])
+
+
+/* ----------------------- CONTROLLER FOR THE MAKE A RECIPE PAGE ---------------------------- */
+.controller('recipePageCtrl', ['$scope', '$state', '$http',
+  function ($scope, $state, $http){
+    $scope.errorMessage = "";
+    $scope.successMessage = "";
+
+    //WHEN THE USER CLICK SUBMIT INGREDIENTS
+    $scope.FindRecipe = function()
+  {
+    if (!$scope.item){
+      $scope.errorMessage = "Please add an ingredient";
+    }
+    else{
+      var ListArr = $scope.item.split(",");
+      var stringUrl = "";
+      for (var i = 0; i < ListArr.length; i++){
+        stringUrl += ListArr[i] += "%2C+";
+      }
+      //GET METHOD TO FIND INGREDIENTS FROM FOOD2FORK
+      $http({
+        method: 'GET',
+        url: 'https://community-food2fork.p.mashape.com/search?key=7c9d9e4fc98c0b81faf9b5527c44e1c5&q=' + stringUrl,
+        headers: {
+          "X-Mashape-Key": "7KmMenc8lRmshcGvbHEKIagWX3WHp1XarlFjsna1HQNyLnMVlv",
+          "Accept": "application/json"
+        }
+      }).
+      then(function success(result){
+        console.log(result.data);
+        var count = result.data.count;
+        alert(count); 
+
+
+        //OUTPUT THE DATA TO THE USER
+        $scope.title = result.data.recipes[0].title;
+        $scope.img = result.data.recipes[0].image_url;
+        $scope.publisher = result.data.recipes[0].publisher;
+        $scope.source = result.data.recipes[0].source_url;
+
+        //SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE!
+        $scope.successMessage = "We find you some recipes :)";
+        $state.go('recipe');
+      });
+
+    }
+
+
+
+
+  };
+}]);

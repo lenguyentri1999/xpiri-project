@@ -11,11 +11,25 @@ angular.module('app.routes', ['ui.router'])
     controller: 'homePageCtrl'
 })
 
-.state('testapp',{
-  name: 'Test App Page',
-  url: '/testappPage',
-    templateUrl: 'testapp.html',
-    controller: 'testappPageCtrl'
+.state('add',{
+  name: 'Add Page',
+  url: '/addPage',
+    templateUrl: 'add.html',
+    controller: 'addPageCtrl'
+})
+
+.state('progress',{
+  name: 'Progress Page',
+  url: '/progressPage',
+    templateUrl: 'progress.html',
+    controller: 'progressPageCtrl'
+})
+
+.state('recipe',{
+  name: 'Recipe Page',
+  url: '/recipePage',
+    templateUrl: 'recipe.html',
+    controller: 'recipePageCtrl'
 });
 
 
