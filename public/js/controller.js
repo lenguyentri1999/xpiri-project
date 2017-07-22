@@ -97,6 +97,7 @@ app.directive('customOnChange', function() {
   function ($scope, $state, $http){
     $scope.errorMessage = "";
     $scope.successMessage = "";
+    $scope.title = "";
 
     //WHEN THE USER CLICK SUBMIT INGREDIENTS
     $scope.FindRecipe = function()
@@ -122,18 +123,18 @@ app.directive('customOnChange', function() {
       then(function success(result){
         console.log(result.data);
         var count = result.data.count;
-        alert(count); 
+        if (count == 0) $scope.errorMessage = "Sorry, we could not find anything :(";
+        else {
+          //OUTPUT THE DATA TO THE USER
+          $scope.title = result.data.recipes[0].title;
+          $scope.img = result.data.recipes[0].image_url;
+          $scope.publisher = result.data.recipes[0].publisher;
+          $scope.source = result.data.recipes[0].source_url;
 
-
-        //OUTPUT THE DATA TO THE USER
-        $scope.title = result.data.recipes[0].title;
-        $scope.img = result.data.recipes[0].image_url;
-        $scope.publisher = result.data.recipes[0].publisher;
-        $scope.source = result.data.recipes[0].source_url;
-
-        //SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE!
-        $scope.successMessage = "We find you some recipes :)";
-        $state.go('recipe');
+          //SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE!
+          $scope.successMessage = "We find you some recipes :)";
+           $state.go('recipe');
+        }
       });
 
     }

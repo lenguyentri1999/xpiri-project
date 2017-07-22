@@ -31,8 +31,13 @@ h2{
 
 p{
   font-family: 'Lato', sans-serif;
-  padding-left: 10px;
   color: #626567;
+
+}
+
+h4{
+  font-weight: lighter;
+  margin-left: 10px; 
 }
 
 
@@ -168,13 +173,33 @@ input{
 }
 
 
+#D2 h2, p{
+  text-align: center;
+}
+
 #D2 img{
   width: 200px;
   height: 200px;
   object-fit: cover;
+  display: block;
+  margin: auto;
+  border: none;
 
 }
 
+#D2 a{
+  text-decoration: none;
+  font-size: 20px;
+  color: #138D75;
+}
+
+#D2 a:hover{
+  font-size: 22px;
+}
+
+#D1 p{
+  margin-left: -20px;
+}
 
 
 

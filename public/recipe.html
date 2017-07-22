@@ -9,13 +9,17 @@
 <div id="D1">
     <div id="error" ng-if="errorMessage !=''">{{errorMessage}}</div>
     <input type="text" ng-model="item" placeholder="SEARCH RECIPE BY INGREDIENTS ..."/>
-    <p>Please separate multiple ingredients with comma. </p>
+    <h4>Please seprate ingredients by comma.</h4>
     <button ng-click=""> IMPORT FROM YOUR LIST</button>
     <button ng-click="FindRecipe(item)"> SUBMIT </button>
-    <div id="success" ng-if="successMessage !=''">{{successMessage}}</div>
+    <div ng-click="show=1" id="success" ng-if="successMessage !=''">{{successMessage}}</div>
 </div>
 
 <div id="D2">
-  <h2>{{title}}</h2>
-  <img src="{{img}}" />
+  <div ng-if="title != ''">
+    <h2>{{title}}</h2>
+    <img src="{{img}}" />
+    <p> <b>Source: </b> {{publisher}} </p>
+    <p>CLICK <a href="{{source}}" target="blank"> HERE </a> to view more! </p>
+  </div>
 </div>
