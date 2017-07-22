@@ -17,6 +17,9 @@ app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', 'webNotif
     if (!$localStorage.selectedFoodList){
       $localStorage.selectedFoodList=[];
     }
+    if (!$localStorage.expiryDates){
+      $localStorage.expiryDates=[];
+    }
 
     console.log($localStorage.selectedFoodList);
 
@@ -26,21 +29,41 @@ app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', 'webNotif
       $scope.foodKeys = Object.keys($scope.foodDatabase);
       // console.log($scope.foodList);
       // console.log(Object.keys($scope.foodList));
+      $scope.addFood = function(food) {
+        var foodObj={};
+        foodObj.text = food;
+        console.log(foodObj.text);
+        //foodTimestamp: how long it takes for a food to expire (in seconds)
+        foodTimestamp = $scope.foodDatabase[food];
+
+        //GET THE TIMESTAMP OF WHEN THE PERSON ADDED THE FOOD
+        var dateTime = Date.now();
+        var timestamp = Math.floor(dateTime/1000);
+
+        //GET THE TIMESTAMP OF WHEN THE FOOD WILL EXPIRE
+        var expiryDateTimestamp = timestamp + foodTimestamp;
+
+        //CONVERT THAT TIMESTAMP INTO DAYS
+        foodObj.day = Math.floor(foodTimestamp/86400);
+        $localStorage.selectedFoodList.push(foodObj);
+
+
+        console.log(foodObj.text + "is selected");
+        console.log("timestamp of right now is " + timestamp);
+        console.log("timestamp from the database is " + foodTimestamp);
+        console.log("timestamp of " + foodObj.text + " is " + expiryDateTimestamp);
+        console.log(foodObj.text + " expires in " + foodObj.day + "days");
+
+
+
+      }
     })
 
     $scope.getParentScope = function() {
       return $scope;
     }
 
-    $scope.addFood = function(food) {
-      $localStorage.selectedFoodList.push(food);
-      console.log(food + "is selected");
-      var bodyMsg = "You have selected " + food;
-      webNotification.showNotification('Xpiri', {
-          body: bodyMsg
 
-        })
-    }
     // $scope.selectedFruit = function(selected){
     //
     //
@@ -57,6 +80,7 @@ app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', 'webNotif
     $scope.clearList = function() {
       $localStorage.selectedFoodList=[];
       $scope.selectedFoodList=[];
+      $state.reload();
     }
 
     $scope.clear = function() {
@@ -66,9 +90,6 @@ app.controller('searchPageCtrl', ['$scope', '$state', '$localStorage', 'webNotif
     }
 
 
-
-
-
-
     }
+
 ]);

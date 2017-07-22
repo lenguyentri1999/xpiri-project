@@ -13,9 +13,12 @@
    minlength="1"
    clear-selected="true"
    /> -->
-   <li ng-repeat="food in selectedFoodList">
-     {{food}}
+   <li ng-repeat="foodObj in selectedFoodList track by $index">
+     {{foodObj.text}}
       <span ng-click="Remove($index)">X</span>
+      <div>
+        expires in {{foodObj.day}} days
+      </div>
 
    </li>
 
