@@ -1,4 +1,4 @@
-var app = angular.module('app.controllers',['ngStorage', 'firebase']);
+var app = angular.module('app.controllers', ['ngStorage', 'firebase']);
 //Handle file input
 app.directive('customOnChange', function() {
   return {
@@ -52,27 +52,38 @@ app.directive('customOnChange', function() {
       $scope.addFood = function(food) {
         var foodObj={};
         foodObj.text = food;
-        console.log(foodObj.text);
+
         //foodTimestamp: how long it takes for a food to expire (in seconds)
         foodTimestamp = $scope.foodDatabase[food];
+        foodObj.foodTimestamp = foodTimestamp;
 
         //GET THE TIMESTAMP OF WHEN THE PERSON ADDED THE FOOD
+        //timeAdded: timestamp of when user adds the food
         var dateTime = Date.now();
-        var timestamp = Math.floor(dateTime/1000);
+        var timeAdded = Math.floor(dateTime/1000);
+        foodObj.timeAdded = timeAdded;
+        console.log("User added this food at: " + timeAdded);
 
         //GET THE TIMESTAMP OF WHEN THE FOOD WILL EXPIRE
-        var expiryDateTimestamp = timestamp + foodTimestamp;
+        var expiryDateTimestamp = timeAdded + foodTimestamp;
+        //STORE WHEN FOOD WILL EXPIRE
+        foodObj.expiryDateTimestamp = expiryDateTimestamp;
 
         //CONVERT THAT TIMESTAMP INTO DAYS
-        foodObj.day = Math.floor(foodTimestamp/86400);
+        foodObj.days = Math.floor(foodTimestamp/86400);
+
+
+
+
+
         $localStorage.selectedFoodList.push(foodObj);
 
 
         console.log(foodObj.text + "is selected");
-        console.log("timestamp of right now is " + timestamp);
+        console.log("timestamp of right now is " + timeAdded);
         console.log("timestamp from the database is " + foodTimestamp);
         console.log("timestamp of " + foodObj.text + " is " + expiryDateTimestamp);
-        console.log(foodObj.text + " expires in " + foodObj.day + "days");
+        console.log(foodObj.text + " expires in " + foodObj.days + "days");
 
 
 
@@ -106,8 +117,23 @@ app.directive('customOnChange', function() {
 ])
 
 /* ----------------------- CONTROLLER FOR THE PROGRESS PAGE ---------------------------- */
-.controller('progressPageCtrl', ['$scope', '$state',
-  function ($scope, $state){
+.controller('progressPageCtrl', ['$scope', '$state', '$localStorage',
+  function ($scope, $state, $localStorage){
+    $scope.selectedFoodList = $localStorage.selectedFoodList;
+    var currentTimestamp = Date.now();
+    currentTimestamp = Math.floor(currentTimestamp/1000);
+    for (i = 0; i<$localStorage.selectedFoodList.length;i++){
+      //Get the difference between the time when food expires and current time
+      var foodObj = $localStorage.selectedFoodList[i];
+      var difference = foodObj.expiryDateTimestamp - currentTimestamp-86400;
+      console.log("The difference is: " + difference);
+      foodObj.timeLeft = difference;
+      foodObj.daysLeft = Math.ceil(difference/86400);
+      foodObj.percent = Math.floor(foodObj.daysLeft/foodObj.days*100);
+      console.log(foodObj);
+
+    }
+
 }])
 
 

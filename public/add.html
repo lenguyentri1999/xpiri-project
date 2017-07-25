@@ -13,7 +13,7 @@
       <div id="innerstatic2">
         <div ng-click="getParentScope().addFood(food)"
             ng-repeat="food in foodKeys | filter: foodKey | emptyifblank: foodKey">
-             {{food}} <span ng-click="getParentScope().addFood(food)">
+             {{food}} <span>
              <i class="fa fa-plus-circle" aria-hidden="true"></i></span>
         </div>
       </div>

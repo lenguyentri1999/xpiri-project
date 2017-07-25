@@ -8,4 +8,7 @@
 <div id="C">
   <h2> YOUR PANTRY PROGRESS</h2>
   <hr />
+  <div ng-repeat="foodObj in selectedFoodList track by $index">
+    {{foodObj.text}} has {{foodObj.daysLeft}} days left
+  </div>
 </div>
