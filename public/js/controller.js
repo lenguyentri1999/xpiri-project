@@ -118,14 +118,17 @@ app.directive('customOnChange', function() {
 
 /* ----------------------- CONTROLLER FOR THE PROGRESS PAGE ---------------------------- */
 .controller('progressPageCtrl', ['$scope', '$state', '$localStorage',
-  function ($scope, $state, $localStorage){
+  function ($scope, $state, $localStorage)
+{
+  //CALCULATING TIME STAMP OF FOOD PROGRESS
     $scope.selectedFoodList = $localStorage.selectedFoodList;
     var currentTimestamp = Date.now();
     currentTimestamp = Math.floor(currentTimestamp/1000);
-    for (i = 0; i<$localStorage.selectedFoodList.length;i++){
+    for (i = 0; i<$localStorage.selectedFoodList.length;i++)
+    {
       //Get the difference between the time when food expires and current time
       var foodObj = $localStorage.selectedFoodList[i];
-      var difference = foodObj.expiryDateTimestamp - currentTimestamp-86400;
+      var difference = foodObj.expiryDateTimestamp - currentTimestamp;
       console.log("The difference is: " + difference);
       foodObj.timeLeft = difference;
       foodObj.daysLeft = Math.ceil(difference/86400);
@@ -134,6 +137,40 @@ app.directive('customOnChange', function() {
 
     }
 
+
+  //FILLING PROGRESS BAR
+    $scope.setBar = function(foodObj){
+      var widthfood = foodObj.percent - 3 + '%';
+      if (foodObj.percent > 70){
+        var fresh = {
+          'width': widthfood,
+          'background-color': '#117A65'
+        };
+        return fresh;
+      }
+      else if (foodObj.percent > 30){
+        var stale = {
+          'width': widthfood,
+          'background-color': '#D35400'
+        };
+        return stale;
+      }
+      else if(foodObj.percent > 0){
+        var rot = {
+          'width': widthfood,
+          'background-color': '#B03A2E'
+        };
+        return rot;
+      }
+      else{
+        var yourFoodIsFuck = {
+          'width': '0px',
+          'background-color': 'black',
+          'padding-left': '20px'
+        };
+        return yourFoodIsFuck;
+      }
+    };
 }])
 
 
@@ -184,4 +221,11 @@ app.directive('customOnChange', function() {
 
     }
   };
+}])
+
+/* ----------------------- CONTROLLER FOR THE HOME PAGE ---------------------------- */
+.controller('blankPageCtrl', ['$scope', '$state',
+  function ($scope, $state){
+    $scope.progressVal = 50;
+
 }]);

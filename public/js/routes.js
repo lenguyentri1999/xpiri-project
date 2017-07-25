@@ -30,6 +30,14 @@ angular.module('app.routes', ['ui.router'])
   url: '/recipePage',
     templateUrl: 'recipe.html',
     controller: 'recipePageCtrl'
+})
+
+.state('blank', {
+  name: 'Blank Page',
+  url: '/blankPage',
+    templateUrl: 'blank.html',
+    controller: 'blankPageCtrl'
+
 });
 
 

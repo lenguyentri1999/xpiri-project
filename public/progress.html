@@ -8,7 +8,14 @@
 <div id="C">
   <h2> YOUR PANTRY PROGRESS</h2>
   <hr />
-  <div ng-repeat="foodObj in selectedFoodList track by $index">
-    {{foodObj.text}} has {{foodObj.daysLeft}} days left
+  <div id="innerstatic1">
+    <div id="C1" ng-repeat="foodObj in selectedFoodList track by $index">
+        {{foodObj.text}} has <b>{{foodObj.daysLeft}} </b>days left
+        <div id="bar" ng-style="setBar(foodObj)">
+          {{foodObj.percent}}%
+        </div>
+    </div>
   </div>
+
+
 </div>
