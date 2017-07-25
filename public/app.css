@@ -1,693 +1,248 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
-@import url('https://fonts.googleapis.com/css?family=Abel|Droid+Sans|Hind|Quicksand');
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
+html, body {margin: 0; height: 100%; overflow: hidden}
 body{
-  margin: 0;
-  height: 100%;
-  width: 100%;
+  background: url('images/header.jpg');
+  background-size: cover;
+  background-position: center center;
 }
 
-input:focus{
+
+
+
+input:focus, textarea:focus, button:focus{
   outline: none;
-}
-
-button:focus{
-  outline: none;
-}
-
-textarea:focus{
-  outline: none;
-}
-
-
-h2{
-  font-family: 'Hind', serif;
-  text-align: center;
-  font-size: 3em;
-  line-height: 1em;
-}
-
-h3{
-  font-family: 'Hind', serif;
-  font-size: 2em !important;
-  line-height: 1em;
-  font-weight: lighter;
-}
-
-
-p{
-  font-family: 'Abel', serif;
-  font-size: 2em;
-  color: #909497;
-  text-align: center;
-}
-
-button{
-  border: none;
-  background-color: rgb(40, 55, 71);
-  padding: 10px;
-  color: white;
-  font-family: 'Hind', sans-serif;
-  font-size: 2.5em;
-  width: 70%;
-  margin-top: 0.5em;
-  display: block;
-  margin: auto;
 }
 
 button:hover{
-  background-color: white;
-  border: rgb(40,55,71) 1px solid;
-  color: rgb(40,55,71);
+  cursor: pointer;
 }
 
-input{
-  width: 70%;
-  border: none;
-  display: block;
-  margin: auto;
-  border-bottom: 0.1px #85929E solid;
-  font-family: 'Hind', sans-serif;
-  font-size: 2.3em;
-  margin-bottom: 1em;
+h1{
+  color: white;
+  font-family: 'Lato', sans-serif;
+  line-height: 50px;
+  margin-left: 70px;
+  display: inline-block;
+  font-size: 25px;
 }
 
-input::placeholder{
-  color: #D7DBDD;
+h2{
+  font-family: 'Lato', sans-serif;
 }
 
-a{
-  color: #283747;
-  font-size: 1.2em;
-  text-decoration: none;
+p{
+  font-family: 'Lato', sans-serif;
+  color: #626567;
+
 }
 
-a:hover{
-  text-decoration: underline;
-}
-
-li{
+#D1 h4{
+  font-weight: lighter;
+  margin-left: 10px;
   color: #626567;
 }
 
-/*---------------------------- STYLING FOR THE RESOURCES PAGE (E.G HOTLINE) -------------------- */
-#content{
-  padding-left: 10%;
-  padding-right: 10%;
-  font-size: 2em;
-  margin-top: 30%;
-  font-family: 'Hind', sans-serif;
+
+i{
+  margin-left: 7px;
 }
 
-#content h4{
-  font-size: 2em;
-  margin-bottom: 0em;
-}
-
-#content ul{
-  font-size: 1.7em;
-  text-align: left;
-}
-
-/*-------------------------------------- STYLING FOR THE HEADER --------------------------------------- */
-#header{
-  width: 100%;
-  top: 0;
-  position: fixed;
-  background-color:  rgb(40, 55, 71);
-  box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.3);
-  text-transform: uppercase;
-  color: white;
-  font-family: 'Hind', serif;
-  font-size: 1.5em;
-  height: 12%;
-  z-index: 3;
-}
-
-#header h1{
-  text-align: center;
-}
-
-/* ---------------------------- STYLING FOR THE BOTTOM NAVIGATION BAR ---------------------------------- */
-#navbar{
-  position: fixed;
-  bottom: 0;
-  background-color: rgb(33, 47, 60);
-  z-index: 3;
-}
-
-.wrap{
-  display: flex;
-  width: 100%;
-}
-
-#navbar i{
-  width: 20%;
-  color: white;
-  display: block;
-  margin: auto;
-  font-size: 2.5em !important;
-}
-
-#navbar a{
-  width: 20%;
-  padding-top: 7%;
-  padding-bottom: 7%;
-  text-decoration: none;
-}
-
-#navbar a:hover{
-  text-decoration: none;
-}
-
-/* ----------------------------- STYLING FOR ERROR MESSAGE ON REGISTRATION PAGE -------------------------- */
-#error, #success{
-  font-family: 'Hind', sans-serif;
-  font-size: 1.5em;
-  text-align: center;
-  font-style: italic;
+input{
+  width: 90%;
+  height: 60px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 20px;
+  color: #7B7D7D;
+  border-bottom: 0.1px solid #D7DBDD;
+  margin-left: 10px;
 }
 
 #error{
   color: #C0392B;
+  font-style: italic;
+  margin-left: 10px;
 }
 
 #success{
-  color: #45B39D;
+  color: #138D75;
+  margin-left: 10px;
+  font-style: italic;
+  margin-top: 10px;
 }
 
-/* ----------------------------- STYLING FOR SIGN IN AND REGISTRATION PAGE -------------------------------- */
-#A, #B{
-  font-family: 'Hind', sans-serif;
-}
 
-#A0, #A02{
-  background: url('img/bg.jpg');
-  background-size: cover;
-  height: 45%;
+/* ------------------------ NAVIGATION BAR -------------------- */
+#A{
+  position: absolute;
   width: 100%;
-  position: fixed;
+  height: 100px;
+  background-color: rgba(0,0,0,0.7);
   top: 0;
-  background-position: 0 -40px;
-}
-
-#A02{
-  height: 30%;
-}
-
-#AA{
-  position: absolute;
-  width: 100%;
-  bottom: 5%;
-}
-
-#A h1{
-  margin-bottom: 0em !important;
-  font-size: 5em;
-  color: #34495E;
-  text-align: center;
+  left: 0;
+  box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.2);
 }
 
 
-#logo{
-  background: #34495E;
-  width: 60%;
-  left: 20%;
-  color: white !important;
-  text-align: center;
-  top: 35%;
+#A h1:hover{
+  font-size: 27px;
+  cursor: pointer;
+}
+
+
+/* THE DIV THAT CONTAIN THE SEARCH BAR AND THE SEARCH RESULTS */
+#B1, #B2, #D1, #D2, #C{
   position: fixed;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 50px;
-  border: 3px solid white;
-  font-size: 5em;
-}
-
-
-/* ------------------------------ STYLING FOR THE FORGOT PASSWORD PAGE --------------------------------- */
-#B1{
-  width: 100%;
-  height: 30%;
-  position: fixed;
-  background: url('img/bg.jpg');
-  background-size: cover;
-}
-
-#B2{
-  width: 100%;
-  top: 35%;
-  position: fixed;
-  padding-top: 20px;
-  color: #626567;
-}
-
-
-#B3{
-  height: 20%;
-  width: 100%;
-  background-color: rgb(40, 55, 71);
-  position: fixed;
-  bottom: 0;
-}
-
-#B p{
-  display: block;
-  width: 70%;
-  margin: auto;
-  font-size: 2em;
-}
-
-
-/* ---------------------------------- STYLING FOR THE USER PROFILE PAGE ------------------------------------ */
-
-#C, #I{
-  position: relative;
-  overflow: auto;
-}
-
-#one, #two{
-  background: none;
-  width: auto;
-  position: absolute;
-  padding: 40px;
-}
-
-#two{
-  right: 5px;
-}
-
-#C0 button:hover{
-  border: none;
-  color: white;
-}
-
-
-#C h2{
-  text-align: left;
-  margin-left: 15%;
-  margin-bottom: 0.5em;
-}
-
-
-#C1, #I1{
-  padding-top: 100px;
-  padding-bottom: 70px;
-  background-color: #283747;
-}
-
-#C1 img, #I1 img{
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  margin: auto;
-  box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.3);
-}
-
-#C1 input[type="file"]{
-  opacity: 0;
-  position: absolute;
-	z-index: -1;
-  overflow: hidden;
-  width: 0.1px;
-	height: 0.1px;
-}
-
-#C1 label{
-  font-family: 'Hind', sans-serif;
-  font-size: 1.5em;
-  display: block;
-  text-align: center;
-  margin-left: 25%;
-  margin-right: 25%;
-  color: white;
-}
-
-
-#C2{
-  display: flex;
-  width: 100%;
-}
-
-#C2 button{
-  padding-top: 5%;
-  padding-bottom: 5%;
-  background: #F2F3F4;
-  width: 25%:
-}
-
-#C2 button:hover{
-  border: #E5E7E9;
-  background-color: #E5E7E9;
-}
-
-
-#C2 i{
-  color: #34495E;
-}
-
-#C3 h5{
-  font-family: 'Abel', sans-serif;
-  margin-left: 15%;
-  margin-right: 10%;
-  text-align: left;
-  color: black;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  font-weight: lighter;
-}
-
-.resize{
-  font-size: 2.5em;
-  margin-left: 15% !important;
-  font-family: 'Abel', sans-serif;
-}
-
-#C3, #I3{
-  margin-bottom: 25%;
-}
-
-
-
-/* ------------------------------ STYLING FOR THE EDIT BIO & RESOURCES PAGE ----------------------------------------- */
-#D, #E{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgb(40, 55, 71);
-  color: white;
-  font-family: 'Hind', sans-serif;
-  z-index: 2;
-}
-
-
-#E1 button{
-  margin-top: 5%;
-  margin-right: 5%;
-  float: right;
-  width: auto;
-  margin-bottom: 10%:
-}
-
-#E2{
-  border: 2px rgb(40, 55, 71) solid;
-  margin-top: 10%;
-}
-
-#E2 h1{
-  display: block;
-  font-size: 4.5em;
-  text-align: center;
-  margin-top: 15%;
-}
-
-#E2 button{
-  background-color: white;
-  color: rgb(40, 55, 71);
-  margin-bottom: 1em;
-}
-
-#E2 i{
-  text-align: right;
-}
-
-
-/* ------------------------------ STYLING FOR THE MATCHING PAGE ----------------------------------------- */
-#F{
-  margin-top: 30%;
-  position: relative;
-  margin-bottom: 30%;
-}
-
-
-#F img{
-  display: block;
-  margin: auto;
-  object-fit: cover !important;
   width: 450px;
-  height: 450px;
-  border-radius: 20px;
-}
-
-#F p{
-  font-size: 2.5em;
-  margin-left: 15%;
-  margin-right: 15%;
-}
-.match{
-  margin-top: 10%;
   background-color: white;
-  border: none;
+  overflow: hidden;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: 'Lato', sans-serif;
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.4);
+  top: 150px;
+  bottom: 100px;
+}
+
+#B1, #D1, #C {
+  left: 100px;
+}
+#B2, #D2{
+  right: 100px;
+}
+
+#C{
+  width: 1100px;
+}
+
+#innerstatic2{
+  max-height:290px; overflow:auto; width:100%;
+}
+
+#innerstatic3{
+  max-height: 230px; overflow:auto; width:100%;
+}
+
+#innerstatic2::-webkit-scrollbar, #innerstatic3::-webkit-scrollbar {
+    width: 1em;
+}
+
+#innerstatic2::-webkit-scrollbar-track, #innerstatic3::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+#innerstatic2::-webkit-scrollbar-thumb, #innerstatic3::-webkit-scrollbar-thumb {
+  background-color: black;
+
+}
+
+
+#B1A{
+  margin-top: 20px;
+  margin-left: 20px;
   color: #626567;
-  font-family: 'Abel', sans-serif;
-  padding: 5%;
-  border: #85929E 1px solid;
-  border-radius: 5px;
+  font-size: 17px;
+  line-height: 30px;
 }
 
-#F button{
-  font-size: 2.5em;
-}
-
-#F b{
-  color: rgb(40, 55, 71) ;
+#B1A i{
+  color: #138D75;
 }
 
 
-/* ----------------------------------STYLING FOR THE INTEREST INPUT FIELD  ----------------------------------*/
-#G{
-  margin-top: 40%;
-  margin-bottom: 40%;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-
-#G input{
-  width: 100%;
-}
-
-#G button{
-  display: inline-block;
-  width: 49%;
-  font-size: 2em;
-}
-
-#G span{
-  float: right;
-  color:  #C0392B;
-}
-
-/* ------------------------------- STYLING FOR THE SETTINGS FIELD  ------------------------------- */
-#H{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(40, 55, 71);
-  color: white;
-}
-
-#H button{
-  background: white;
-  margin-bottom: 0.3em;
-  font-size: 2.5em;
-  color: rgb(40, 55, 71);
-}
-
-#H1{
-  margin-top: 1em;
-  margin-left: 5%;
-  margin-bottom: 12em;
-  display: block;
-}
-
-#H1 button{
-  float: left;
-  width: auto;
-  background-color: rgb(40, 55, 71);
-  color: white;
-}
-
-#H input{
-  font-size: 2em;
-  background: transparent;
-  color: white;
-}
-
-
-
-/*---------------------------- STYLING FOR OTHER PEOPLE BIO PAGE (E.G HOTLINE) -------------------- */
-#I1 button{
-  border: 1px white solid;
-  width: 30%;
-  font-size: 2em;
-  margin-top: 1em;
-}
-
-
-
-/*------------------------------------ STYLING FOR THE MESSAGE PAGE------------------------------ */
-#J{
-  width: 100%;
-  padding-top: 30%;
-  height: 55%;
-  position: fixed;
-  top: 10%;
-  background-color: #EAECEE;
-}
-
-#J0{
-  padding-top: 10%;
-  padding-bottom: 15%;
-  overflow: auto;
-  position: absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  top: 0;
-  max-height: 100%;
-  width: 100%;
-}
-
-#J1{
-  font-family: "Dosis", sans-serif;
-  font-size: 2.5em;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-#J1time{
-  color: #ABB2B9;
-}
-
-#J2{
-  position: fixed;
-  bottom: 10%;
-  width: 100%;
-  padding-bottom: 5%;
-  background: white;
-}
-
-#J2 input{
-  background: transparent;
-  width: 60%;
-  float: left;
-  margin-left: 5%;
-  font-size: 1em;
-  margin-bottom: 0em;
-  display: inline-block;
-  padding-top: 2.5%;
-}
-
-#J2 button{
-  margin-right: 7%;
-  float: right;
-  font-size: 2.5em;
-  padding-bottom: 1%;
-  display: inline-block;
-  width: auto;
-}
-
-/* ---------------------------------------- STYLING FOR THE SEARCH PAGE ------------------------------ */
-#K{
-  position: absolute;
-  margin-top: 30%;
-  width: 100%;
-  height: 100%;
-
-}
-
-#K1{
-  font-family: 'Hind', sans-serif;
+::-webkit-input-placeholder {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
   color: #A6ACAF;
-  margin-left: 15%;
-
-}
-
-#K1 input[type='radio'] {
-  float: left;
-  width: auto;
-  margin-top: 0.5em;
-  transform: scale(2.5);
-}
-
-#K1 label{
-  font-size: 2em;
-  margin-left: 0.5em;
 }
 
 
-#K2{
-  margin-left: 15%;
-  font-size: 2.5em;
-  font-family: 'Hind', sans-serif;
+#B2 button, #D1 button{
+  display: block;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  color: white;
 }
 
-/* ---------------------------------------- STYLING FOR THE LIST PAGE ------------------------------ */
-#top{
-  margin-top: 30%;
-  margin-bottom: 30%;
+#B2 button{
+  background: #922B21;
 }
 
-#L{
-  padding-bottom: 5%;
-  width: 100%;
-  display: flex;
-  margin-bottom: 5%;
-  border-bottom: 1px solid #D7DBDD;
+#D1 button{
+  margin-top: 0px;
+  display: inline-block;
+  margin-left: 10px;
+  background: rgba(0,0,0,0.8);
 }
 
-#L1{
-  width: 30%;
-  padding-left: 10%; 
+
+#B2A{
+  font-size: 17px;
+  font-family: 'Lato', sans-serif;
+  line-height: 30px;
+  color: #4D5656;
 }
 
-#L1 img{
+#B2A i{
+  margin-right: 5px;
+}
+
+#B2A span{
+  display: inline-block;
+  float: right;
+}
+
+
+#D2 h2, p{
+  text-align: center;
+}
+
+#D2 img{
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border-radius: 100px;
-
-
-}
-
-#L2{
-  font-family: 'Hind', sans-serif;
-  font-size: 200%;
-  color: gray;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-
-#L2 b{
-  color: black;
-  font-size: 120%;
-}
-
-/* ---------------------------------------- STYLING FOR THE LIST PAGE ------------------------------ */
-#M{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /*background: url('http://blog.connectingthreads.com/wp-content/uploads/2016/04/Stars-and-Stripes-Sketch.jpg');*/
-  /*background: url('https://s-media-cache-ak0.pinimg.com/originals/2f/b3/4f/2fb34fe6b9f6e8bb856f2f5c4721a22f.gif');*/
-  /*background: url('https://s-media-cache-ak0.pinimg.com/originals/74/e6/f4/74e6f423a013bb8decb7deea1b2dfa3f.png');*/
-  background: url('http://static.tumblr.com/13269df65d1d82c3938aa82717413b3f/qx7gnto/9rroi1lyf/tumblr_static_eglnm4oqtegc0o00c0wks4wcc.jpg');
-  background-repeat: no-repeat;
-  background-position: center -30px;
-
+  display: block;
+  margin: auto;
+  border: none;
 
 }
 
-#M1{
-  position: relative;
-  top: 55%;
-  transform: translateY(-45%);
+#D2 a{
+  text-decoration: none;
+  font-size: 20px;
+  color: #138D75;
 }
 
-#M button{
-  background: rgba(40,55,71,0.9);
-  font-size: 5em;
+#D2 a:hover{
+  font-size: 22px;
+}
+
+#D1 p{
+  margin-left: -20px;
+}
+
+
+
+/* ------------------- WHEN SCREEN SIZE CHANGE ---------------- */
+@media only screen and (max-width: 1000px) {
+    #B1, #D1 {
+        position: relative;
+        z-index: -1;
+        height: 200px;
+    }
+
+    #B2, #D2 {
+        position: relative;
+        margin-left: 200px;
+        z-index: -1;
+        margin-top: 100px;
+
+    }
 }

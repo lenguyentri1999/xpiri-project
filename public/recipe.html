@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<div id="A">
+  <h1 ui-sref="add">ADD ITEMS  <i class="fa fa-plus" aria-hidden="true"></i> </h1>
+  <h1 ui-sref="progress"> PROGRESS  <i class="fa fa-line-chart" aria-hidden="true"></i> </h1>
+  <h1 ui-sref="recipe"> RECIPE  <i class="fa fa-coffee" aria-hidden="true"></i></h1>
+</div>
+
+
+<div id="D1">
+    <div id="error" ng-if="errorMessage !=''">{{errorMessage}}</div>
+    <input type="text" ng-model="item" placeholder="SEARCH RECIPE BY INGREDIENTS ..."/>
+    <h4>Please seprate ingredients by comma.</h4>
+    <button ng-click=""> IMPORT FROM YOUR LIST</button>
+    <button ng-click="FindRecipe(item)"> SUBMIT </button>
+    <div ng-click="show=1" id="success" ng-if="successMessage !=''">{{successMessage}}</div>
+</div>
+
+<div id="D2">
+  <div ng-if="title != ''">
+    <h2>{{title}}</h2>
+    <img src="{{img}}" />
+    <p> <b>Source: </b> {{publisher}} </p>
+    <p>CLICK <a href="{{source}}" target="blank"> HERE </a> to view more! </p>
+  </div>
+</div>

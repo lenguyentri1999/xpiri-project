@@ -1,6 +1,5 @@
-# buddy-project
-A mobile platform aim to tackle mental health issues by pairing teenagers as buddies.
-
+# xpiri
+A website to alert users status of their pantry
 
 ## Link to Kanban Board
-https://trello.com/b/otuHF1lY/buddy-kanban 
+https://trello.com/b/EkINWyNp/xpiry
