@@ -122,6 +122,10 @@ app.directive('customOnChange', function() {
 {
   //CALCULATING TIME STAMP OF FOOD PROGRESS
     $scope.selectedFoodList = $localStorage.selectedFoodList;
+
+    //Store rotten foods for import feature
+    $localStorage.rottenFoods = [];
+
     var currentTimestamp = Date.now();
     currentTimestamp = Math.floor(currentTimestamp/1000);
     for (i = 0; i<$localStorage.selectedFoodList.length;i++)
@@ -133,6 +137,9 @@ app.directive('customOnChange', function() {
       foodObj.timeLeft = difference;
       foodObj.daysLeft = Math.ceil(difference/86400);
       foodObj.percent = Math.floor(foodObj.daysLeft/foodObj.days*100);
+      if (foodObj.percent<30){
+        $localStorage.rottenFoods.push(foodObj);
+      }
       console.log(foodObj);
 
     }
@@ -163,23 +170,41 @@ app.directive('customOnChange', function() {
         return rot;
       }
       else{
-        var yourFoodIsFuck = {
+        var expired = {
           'width': '0px',
           'background-color': 'black',
           'padding-left': '20px'
         };
-        return yourFoodIsFuck;
+        return expired;
       }
     };
 }])
 
 
 /* ----------------------- CONTROLLER FOR THE MAKE A RECIPE PAGE ---------------------------- */
-.controller('recipePageCtrl', ['$scope', '$state', '$http',
-  function ($scope, $state, $http){
+.controller('recipePageCtrl', ['$scope', '$state', '$http', '$localStorage',
+  function ($scope, $state, $http, $localStorage){
     $scope.errorMessage = "";
     $scope.successMessage = "";
     $scope.title = "";
+
+    $scope.getRottenFoods = function() {
+      var str = "";
+      if ($localStorage.rottenFoods.length==0){
+        $scope.importMessage = "You don't have any stale food. Good job!";
+      }
+      else{
+        for (i = 0; i<$localStorage.rottenFoods.length;i++){
+          str+=$localStorage.rottenFoods[i].text;
+          str+=", ";
+        }
+        $scope.item = str.substring(0,str.length-1);
+        $scope.importMessage = "All your stale food has been imported!";
+
+      }
+      $state.go('recipe');
+
+    }
 
     //WHEN THE USER CLICK SUBMIT INGREDIENTS
     $scope.FindRecipe = function()
@@ -214,7 +239,7 @@ app.directive('customOnChange', function() {
           $scope.source = result.data.recipes[0].source_url;
 
           //SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE!
-          $scope.successMessage = "We find you some recipes :)";
+          $scope.successMessage = "We found you some recipes :)";
            $state.go('recipe');
         }
       });
