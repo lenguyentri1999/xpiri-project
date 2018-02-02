@@ -28,27 +28,26 @@ app.directive('customOnChange', function() {
   };
 })
 
+//-------------------------------- PAGE TO ADD THE FOOD --------------------------
 .controller('addPageCtrl', ['$scope', '$state', '$localStorage', 'webNotification',
   function ($scope, $state, $localStorage, webNotification)
   {
-    var ref = firebase.database().ref();
+    var ref = firebase.database().ref("food");
     var food = ref.orderByKey();
 
     if (!$localStorage.selectedFoodList){
       $localStorage.selectedFoodList=[];
     }
-    if (!$localStorage.expiryDates){
-      $localStorage.expiryDates=[];
+    else{
+        console.log($localStorage.selectedFoodList);
     }
-
     console.log($localStorage.selectedFoodList);
 
 
     food.on("value", function(snap){
       $scope.foodDatabase = snap.val();
       $scope.foodKeys = Object.keys($scope.foodDatabase);
-      // console.log($scope.foodList);
-      // console.log(Object.keys($scope.foodList));
+      console.log($scope.foodDatabase);
       $scope.addFood = function(food) {
         var foodObj={};
         foodObj.text = food;
@@ -73,12 +72,10 @@ app.directive('customOnChange', function() {
         foodObj.days = Math.floor(foodTimestamp/86400);
 
 
-
-
-
         $localStorage.selectedFoodList.push(foodObj);
 
 
+        //----------------------- CALCULATE TIME STAMP ----------------------- --
         console.log(foodObj.text + "is selected");
         console.log("timestamp of right now is " + timeAdded);
         console.log("timestamp from the database is " + foodTimestamp);
@@ -90,24 +87,23 @@ app.directive('customOnChange', function() {
       };
     });
 
+    //-------- NOT SURE WHAT THIS CODE DOES BUT WITHOUT IT, THE WEBSITE DOESN'T WORK ¯\_(ツ)_/¯
     $scope.getParentScope = function() {
       return $scope;
     };
 
-
-    // };
+    //---------------- FUNCTION TO REMOVE FOOD -------------
     $scope.Remove = function(x){
-
-      $localStorage.selectedFoodList.splice(x, 1);
+        $localStorage.selectedFoodList.splice(x, 1);
     };
     $scope.selectedFoodList=$localStorage.selectedFoodList;
 
+    //------- CLEAR A LIST OF FOOD -----------
     $scope.clearList = function() {
-      $localStorage.selectedFoodList=[];
-      $scope.selectedFoodList=[];
-      $state.reload();
+        $localStorage.selectedFoodList=[];
+        $scope.selectedFoodList=[];
+        $state.reload();
     };
-
     $scope.clear = function() {
       if ($scope.foodKey.length ===0) {
         delete $scope.foodKey;
@@ -120,17 +116,29 @@ app.directive('customOnChange', function() {
 .controller('progressPageCtrl', ['$scope', '$state', '$localStorage',
   function ($scope, $state, $localStorage)
 {
-  //CALCULATING TIME STAMP OF FOOD PROGRESS
+  //-------- CALCULATING TIME STAMP OF FOOD PROGRESS --------
     $scope.selectedFoodList = $localStorage.selectedFoodList;
 
-    //Store rotten foods for import feature
+    //------ STORE ROTTEN FOOD FOR IMPORT FEATURES ----------
     $localStorage.rottenFoods = [];
-
     var currentTimestamp = Date.now();
     currentTimestamp = Math.floor(currentTimestamp/1000);
-    for (i = 0; i<$localStorage.selectedFoodList.length;i++)
-    {
-      //Get the difference between the time when food expires and current time
+
+
+    //------- TAKE INFO OF STORAGE STRING ON THE DATABASE ------
+    var statusRef = firebase.database().ref("status");
+    var promiseRef = statusRef.on('value', function(snapshot){
+        $scope.expiredStr = snapshot.val().expired;
+        $scope.staleStr = snapshot.val().stale;
+        $scope.goodStr = snapshot.val().good;
+    });
+
+
+
+    //--------  A LOOP TO CALCULATE EXPIRATION DATE FOR ALL FOOD OBJECTS -------
+    for (i = 0; i<$localStorage.selectedFoodList.length;i++){
+
+      //------------------ CALCULATE EXPIRATION DATE ---------------
       var foodObj = $localStorage.selectedFoodList[i];
       var difference = foodObj.expiryDateTimestamp - currentTimestamp;
       console.log("The difference is: " + difference);
@@ -140,12 +148,39 @@ app.directive('customOnChange', function() {
       if (foodObj.percent<30){
         $localStorage.rottenFoods.push(foodObj);
       }
-      console.log(foodObj);
+
+      //--------------------- UPDATE DATA ON FIREBASE ---------------
+      var foodName = foodObj.text.substring(0,foodObj.text.indexOf('('));
+      var foodRef = firebase.database().ref("storage").child(foodName);
+      foodRef.update(foodObj);
+
+      //--------------- UPDATE STATUS DATABASE -----------
+      if (foodObj.percent > 70){
+          $scope.expiredStr = $scope.expiredStr + foodName + ",";
+      }
+      else if (foodObj.pecent > 30 ){
+          $scope.staleStr = $scope.staleStr + foodName + ",";
+      }
+      else{
+          $scope.goodStr = $scope.goodStr + foodname;
+      }
+      foodName = "";
 
     }
 
+    //----------- UPDATE THE STORAGE DATABASE -------
+    console.log("Food status");
+    console.log($scope.goodStr);
+    console.log($scope.staleStr);
+    console.log($scope.expiredStr);
 
-  //FILLING PROGRESS BAR
+    statusRef.child("expired").update($scope.expired);
+    statusRef.child("good").update($scope.good);
+    statusRef.child("stale").update($scope.stale);
+
+
+
+  //----------- FILLING PROGRESS BAR -----------
     $scope.setBar = function(foodObj){
       var widthfood = foodObj.percent - 3 + '%';
       if (foodObj.percent > 70){
@@ -155,6 +190,8 @@ app.directive('customOnChange', function() {
         };
         return fresh;
       }
+
+      //---------- IF FOOD IS STALE --------
       else if (foodObj.percent > 30){
         var stale = {
           'width': widthfood,
@@ -162,6 +199,8 @@ app.directive('customOnChange', function() {
         };
         return stale;
       }
+
+      //-------- IF FOOD IS ROTTEN ----------
       else if(foodObj.percent > 0){
         var rot = {
           'width': widthfood,
@@ -169,6 +208,8 @@ app.directive('customOnChange', function() {
         };
         return rot;
       }
+
+      //------- IF FOOD EXPIRED -------------
       else{
         var expired = {
           'width': '0px',
@@ -188,6 +229,7 @@ app.directive('customOnChange', function() {
     $scope.successMessage = "";
     $scope.title = "";
 
+    //---------------- GET ROTTEN FOOD TO CREATE A RECIPE --------------------
     $scope.getRottenFoods = function() {
       var str = "";
       if ($localStorage.rottenFoods.length==0){
@@ -203,12 +245,10 @@ app.directive('customOnChange', function() {
 
       }
       $state.go('recipe');
-
     }
 
-    //WHEN THE USER CLICK SUBMIT INGREDIENTS
-    $scope.FindRecipe = function()
-  {
+    //--------------- WHEN THE USER CLICK SUBMIT INGREDIENTS--------------
+    $scope.FindRecipe = function(){
     if (!$scope.item){
       $scope.errorMessage = "Please add an ingredient";
     }
@@ -218,7 +258,7 @@ app.directive('customOnChange', function() {
       for (var i = 0; i < ListArr.length; i++){
         stringUrl += ListArr[i] += "%2C+";
       }
-      //GET METHOD TO FIND INGREDIENTS FROM FOOD2FORK
+      //---------------------------------- GET METHOD TO FIND INGREDIENTS FROM FOOD2FORK ----------- ---------------
       $http({
         method: 'GET',
         url: 'https://community-food2fork.p.mashape.com/search?key=7c9d9e4fc98c0b81faf9b5527c44e1c5&q=' + stringUrl,
@@ -226,24 +266,28 @@ app.directive('customOnChange', function() {
           "X-Mashape-Key": "7KmMenc8lRmshcGvbHEKIagWX3WHp1XarlFjsna1HQNyLnMVlv",
           "Accept": "application/json"
         }
-      }).
-      then(function success(result){
-        console.log(result.data);
+      })
+
+      //--------------------- IF SUCCESSFULLY GET EXTERNAL API REQUEST ----------------
+      .then(function success(result){
+        // console.log(result.data);
         var count = result.data.count;
+
+        //------------------- IF THERE WAS NO RECIPE TO BE FOUND ---------------------
         if (count === 0) $scope.errorMessage = "Sorry, we could not find anything :(";
         else {
-          //OUTPUT THE DATA TO THE USER
+
+          //--------- IF FOUND RECIPE, OUTPUT THE DATA TO THE USER ---------------
           $scope.title = result.data.recipes[0].title;
           $scope.img = result.data.recipes[0].image_url;
           $scope.publisher = result.data.recipes[0].publisher;
           $scope.source = result.data.recipes[0].source_url;
 
-          //SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE!
+          //--------SEND THE THE SUCCESS MESSAGE AND A SMILEY FACE! --------------
           $scope.successMessage = "We found you some recipes :)";
            $state.go('recipe');
         }
       });
-
     }
   };
 }])

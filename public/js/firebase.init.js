@@ -3,14 +3,14 @@ angular.module('firebaseConfig', ['firebase'])
 .run(function(){
 
     // Initialize Firebase
-   var config = {
-     apiKey: "AIzaSyA4I0Hvqorb4ZCkN8ohP2080hm32oIxDqE",
-     authDomain: "xpiri-49a18.firebaseapp.com",
-     databaseURL: "https://xpiri-49a18.firebaseio.com",
-     projectId: "xpiri-49a18",
-     storageBucket: "xpiri-49a18.appspot.com",
-     messagingSenderId: "257388376589"
-   };
+    var config = {
+    apiKey: "AIzaSyBhLTykFVw44fxAHI2pPUKnei60_nO9NaA",
+    authDomain: "animal-guesser-28dcd-6cbe6.firebaseapp.com",
+    databaseURL: "https://animal-guesser-28dcd-6cbe6.firebaseio.com",
+    projectId: "animal-guesser-28dcd",
+    storageBucket: "animal-guesser-28dcd.appspot.com",
+    messagingSenderId: "754840513932"
+  };
    firebase.initializeApp(config);
 
 });
